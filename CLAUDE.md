@@ -8,7 +8,7 @@ An Angular SPA talks to a NestJS BFF over REST; the BFF talks to the .NET API ov
 exposes the same use cases so any AI client can analyze the user's finances.
 
 ## Working agreement
-- Talk to the user in **Spanish**. Code, comments, commits and docs in **English**.
+- Talk to the final user in **Spanish**. Code, comments, commits and docs in **English**.
 - **Plan first.** For any task touching more than one project, propose a plan and wait for approval.
 - **Small steps.** One feature per branch. Commit after each green step using Conventional Commits (`feat:`, `fix:`, `test:`, `docs:`, `chore:`, `refactor:`).
 - **Tests are part of done.** Every domain rule gets a unit test. Never mark a task done with failing tests.
