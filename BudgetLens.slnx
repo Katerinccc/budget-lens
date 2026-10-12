@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BudgetLens.Api/BudgetLens.Api.csproj" />
+    <Project Path="src/BudgetLens.AppHost/BudgetLens.AppHost.csproj" />
+    <Project Path="src/BudgetLens.Application/BudgetLens.Application.csproj" />
+    <Project Path="src/BudgetLens.Domain/BudgetLens.Domain.csproj" />
+    <Project Path="src/BudgetLens.Infrastructure/BudgetLens.Infrastructure.csproj" />
+    <Project Path="src/BudgetLens.Mcp/BudgetLens.Mcp.csproj" />
+    <Project Path="src/BudgetLens.ServiceDefaults/BudgetLens.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BudgetLens.Application.Tests/BudgetLens.Application.Tests.csproj" />
+    <Project Path="tests/BudgetLens.ArchitectureTests/BudgetLens.ArchitectureTests.csproj" />
+    <Project Path="tests/BudgetLens.Domain.Tests/BudgetLens.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
