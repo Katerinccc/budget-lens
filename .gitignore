@@ -480,3 +480,12 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+## Node / front end (BFF and Angular)
+dist/
+.angular/
+coverage/
+*.tsbuildinfo
+
+## Generated Protobuf code (regenerated from protos/ by `npm run proto:gen`)
+src/bff/src/generated/
