@@ -8,7 +8,8 @@ An Angular SPA talks to a NestJS BFF over REST; the BFF talks to the .NET API ov
 exposes the same use cases so any AI client can analyze the user's finances.
 
 ## Working agreement
-- Talk to the user in **Spanish**. Code, comments, commits and docs in **English**.
+- Talk to the developer in **English** (they may ask in Spanish; answer in English unless asked otherwise).
+  Code, comments, commits and docs in **English**. End-user UI text is bilingual (see Conventions).
 - **Plan first.** For any task touching more than one project, propose a plan and wait for approval.
 - **Small steps.** One feature per branch. Commit after each green step using Conventional Commits (`feat:`, `fix:`, `test:`, `docs:`, `chore:`, `refactor:`).
 - **Tests are part of done.** Every domain rule gets a unit test. Never mark a task done with failing tests.
@@ -116,6 +117,10 @@ Dependency rules — enforced by `BudgetLens.ArchitectureTests`:
 - Central Package Management (`Directory.Packages.props`), shared settings in `Directory.Build.props`.
 - gRPC services grouped by feature (one service per bounded area: Budget, Goals, Investments, Debts).
 - Angular: standalone components, signals, Angular Material. Keep the UI simple and clean.
+- UI is bilingual (see ADR 0008): English (`en`) and Colombian Spanish (`es-CO`), detected from the browser,
+  English as fallback. Use Transloco; never hardcode user-facing strings in templates or components.
+- Format money, numbers, percentages and dates only through Angular pipes with the active locale.
+- Keep Colombian finance terms (CDT, E.A.) untranslated, with an English tooltip.
 - Tests: xUnit. Integration tests with Testcontainers. Architecture tests with ArchUnitNET.
 
 ## Glossary (Colombian finance)

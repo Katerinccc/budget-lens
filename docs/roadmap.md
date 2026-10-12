@@ -31,8 +31,9 @@ Then:
 - [ ] Project references following the dependency rules in CLAUDE.md
 - [ ] `Directory.Build.props` (nullable, warnings as errors) and `Directory.Packages.props`
 - [ ] AppHost wires: SQL Server and MongoDB containers, Api, BFF, Angular app
+- [ ] Angular i18n foundation: Transloco with `en` + `es-CO` (browser detection, English fallback), `es-CO` locale data registered for pipes
 - [ ] Architecture tests enforcing the dependency rules
-- [ ] GitHub Actions: build + test (.NET and BFF) on every push and PR, badge in README
+- [ ] GitHub Actions: build + test (.NET, BFF and Angular) on every push and PR, badge in README
 
 ## Phase 1 — Budget MVP
 Goal: a user can define a plan, register expenses and see drift per jar.
@@ -44,7 +45,7 @@ Goal: a user can define a plan, register expenses and see drift per jar.
 - [ ] `budget.proto`: BudgetService (create plan, set income, register expense, monthly summary)
 - [ ] Unit-tested `DecimalValue` ↔ `decimal` mapper (C#) and ↔ string/decimal mapper (TS)
 - [ ] BFF: `GET /dashboard` aggregation endpoint calling the Api over gRPC with deadlines
-- [ ] Angular (via BFF only): income + plan setup, expense entry, dashboard with jar progress
+- [ ] Angular (via BFF only): income + plan setup, expense entry, dashboard with jar progress, every string translated in `en` and `es-CO`
 - [ ] Single-user demo mode (auth comes later)
 
 ## Phase 2 — Savings, investments and debts
