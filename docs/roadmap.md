@@ -26,7 +26,7 @@ npx @nestjs/cli@latest new bff --directory src/bff --package-manager npm --skip-
 ```
 
 Then:
-- [ ] `protos/` folder with `budgetlens/v1/common.proto` (`DecimalValue`, `Money`) referenced by the Api csproj
+- [x] `protos/` folder with `budgetlens/v1/common.proto` (`DecimalValue`, `Money`) referenced by the Api csproj
 - [ ] BFF generates TypeScript types from `protos/` with ts-proto (npm script)
 - [x] Project references following the dependency rules in CLAUDE.md
 - [x] `Directory.Build.props` (nullable, warnings as errors) and `Directory.Packages.props`

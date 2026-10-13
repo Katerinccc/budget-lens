@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package budgetlens.v1;
+
+option csharp_namespace = "BudgetLens.Api.Contracts.V1";
+
+// Exact decimal number, since Protobuf has no decimal type and double cannot represent money.
+// value = units + nanos / 1_000_000_000
+// units and nanos must have the same sign (or be zero), and nanos is in [-999_999_999, 999_999_999].
+// Example: 1234.56 -> { units: 1234, nanos: 560000000 }; -0.5 -> { units: 0, nanos: -500000000 }.
+message DecimalValue {
+  int64 units = 1;
+  sfixed32 nanos = 2;
+}
+
+// An amount of money in a specific currency.
+message Money {
+  DecimalValue amount = 1;
+  // ISO 4217 currency code, e.g. "COP".
+  string currency_code = 2;
+}

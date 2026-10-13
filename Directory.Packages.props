@@ -6,6 +6,8 @@
 
   <ItemGroup Label="gRPC">
     <PackageVersion Include="Grpc.AspNetCore" Version="2.84.0" />
+    <PackageVersion Include="Grpc.AspNetCore.HealthChecks" Version="2.84.0" />
+    <PackageVersion Include="Grpc.AspNetCore.Server.Reflection" Version="2.84.0" />
   </ItemGroup>
 
   <ItemGroup Label="Service defaults">
