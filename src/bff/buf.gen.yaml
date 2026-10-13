@@ -1,0 +1,15 @@
+# Generates TypeScript types and NestJS gRPC interfaces from ../../protos with ts-proto.
+# Run with `npm run proto:gen` (npm puts node_modules/.bin on PATH, where the plugin lives).
+version: v2
+clean: true
+inputs:
+  - directory: ../../protos
+plugins:
+  - local: protoc-gen-ts_proto
+    out: src/generated
+    strategy: all
+    opt:
+      - nestJs=true
+      - forceLong=string
+      - esModuleInterop=true
+      - importSuffix=.js

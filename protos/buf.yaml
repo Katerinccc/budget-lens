@@ -1,0 +1,8 @@
+# Buf module: the protos/ folder is the single source of truth for gRPC contracts.
+version: v2
+lint:
+  use:
+    - STANDARD
+breaking:
+  use:
+    - FILE
