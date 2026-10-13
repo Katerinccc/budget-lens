@@ -29,11 +29,12 @@ Then:
 - [ ] `protos/` folder with `budgetlens/v1/common.proto` (`DecimalValue`, `Money`) referenced by the Api csproj
 - [ ] BFF generates TypeScript types from `protos/` with ts-proto (npm script)
 - [ ] Project references following the dependency rules in CLAUDE.md
-- [ ] `Directory.Build.props` (nullable, warnings as errors) and `Directory.Packages.props`
+- [x] `Directory.Build.props` (nullable, warnings as errors) and `Directory.Packages.props`
 - [ ] AppHost wires: SQL Server and MongoDB containers, Api, BFF, Angular app
 - [ ] Angular i18n foundation: Transloco with `en` + `es-CO` (browser detection, English fallback), `es-CO` locale data registered for pipes
 - [ ] Architecture tests enforcing the dependency rules
-- [ ] GitHub Actions: build + test (.NET, BFF and Angular) on every push and PR, badge in README
+- [x] GitHub Actions: build + test (.NET, BFF and Angular) on every push and PR, badge in README
+- [ ] *(Later, once an Anthropic API key with a spend limit exists)* Claude Code GitHub Action: on-demand `@claude` reviews and help in PRs/issues (Sonnet, `--max-turns`, job timeout)
 
 ## Phase 1 — Budget MVP
 Goal: a user can define a plan, register expenses and see drift per jar.
