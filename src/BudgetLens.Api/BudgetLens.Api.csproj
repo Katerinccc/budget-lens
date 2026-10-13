@@ -2,6 +2,13 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" />
+    <PackageReference Include="Grpc.AspNetCore.HealthChecks" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Contract first: C# types are generated at build time from the shared protos/ folder. -->
+    <Protobuf Include="..\..\protos\**\*.proto" ProtoRoot="..\..\protos" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
