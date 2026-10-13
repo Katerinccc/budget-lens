@@ -1,3 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  <ItemGroup>
+    <ProjectReference Include="..\BudgetLens.Domain\BudgetLens.Domain.csproj" />
+  </ItemGroup>
 </Project>
