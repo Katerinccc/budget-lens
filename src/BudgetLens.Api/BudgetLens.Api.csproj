@@ -4,4 +4,11 @@
     <PackageReference Include="Grpc.AspNetCore" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BudgetLens.Application\BudgetLens.Application.csproj" />
+    <ProjectReference Include="..\BudgetLens.Infrastructure\BudgetLens.Infrastructure.csproj" />
+    <ProjectReference Include="..\BudgetLens.Mcp\BudgetLens.Mcp.csproj" />
+    <ProjectReference Include="..\BudgetLens.ServiceDefaults\BudgetLens.ServiceDefaults.csproj" />
+  </ItemGroup>
+
 </Project>

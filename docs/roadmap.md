@@ -28,7 +28,7 @@ npx @nestjs/cli@latest new bff --directory src/bff --package-manager npm --skip-
 Then:
 - [ ] `protos/` folder with `budgetlens/v1/common.proto` (`DecimalValue`, `Money`) referenced by the Api csproj
 - [ ] BFF generates TypeScript types from `protos/` with ts-proto (npm script)
-- [ ] Project references following the dependency rules in CLAUDE.md
+- [x] Project references following the dependency rules in CLAUDE.md
 - [x] `Directory.Build.props` (nullable, warnings as errors) and `Directory.Packages.props`
 - [ ] AppHost wires: SQL Server and MongoDB containers, Api, BFF, Angular app
 - [ ] Angular i18n foundation: Transloco with `en` + `es-CO` (browser detection, English fallback), `es-CO` locale data registered for pipes
