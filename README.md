@@ -1,5 +1,7 @@
 # BudgetLens 🔍
 
+[![CI](https://github.com/Katerinccc/budget-lens/actions/workflows/ci.yml/badge.svg)](https://github.com/Katerinccc/budget-lens/actions/workflows/ci.yml)
+
 **Personal budget and investment tracker built with .NET 10, Angular and Azure — with an MCP server so any AI assistant can analyze your finances.**
 
 > Status: 🚧 in active development. See the [roadmap](docs/roadmap.md).
@@ -59,7 +61,7 @@ Key decisions are recorded as [ADRs](docs/adr/).
 | Quality | xUnit · Testcontainers · ArchUnitNET · GitHub Actions |
 
 ## Run locally
-Requirements: .NET 10 SDK, Node.js LTS, Docker Desktop, Aspire CLI.
+Requirements: .NET 10 SDK, Node.js 24 LTS (see `.nvmrc`), Docker Desktop, Aspire CLI.
 
 ```bash
 aspire run
