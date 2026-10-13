@@ -12,6 +12,8 @@ exposes the same use cases so any AI client can analyze the user's finances.
   Code, comments, commits and docs in **English**. End-user UI text is bilingual (see Conventions).
 - **Plan first.** For any task touching more than one project, propose a plan and wait for approval.
 - **Small steps.** One feature per branch. Commit after each green step using Conventional Commits (`feat:`, `fix:`, `test:`, `docs:`, `chore:`, `refactor:`).
+- **Review before commit.** Never commit, push or open a PR without the developer's explicit approval. First show
+  the changed files and the proposed commit message(s) and PR title/description, then wait for the go-ahead.
 - **Tests are part of done.** Every domain rule gets a unit test. Never mark a task done with failing tests.
 - **Record decisions.** Any architectural decision → new ADR in `docs/adr/` (next number, same format as 0001).
 - Prefer editing over rewriting files. Keep solutions simple. No speculative abstractions.
