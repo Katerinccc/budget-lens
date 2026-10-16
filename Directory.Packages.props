@@ -2,7 +2,15 @@
   <!-- Central Package Management: versions live here; csproj files reference packages without a version. -->
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <!-- Versions listed here also override transitive dependencies (used for security pins below). -->
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
+
+  <ItemGroup Label="Aspire hosting">
+    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.6.1" />
+    <PackageVersion Include="Aspire.Hosting.MongoDB" Version="13.6.1" />
+    <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.6.1" />
+  </ItemGroup>
 
   <ItemGroup Label="gRPC">
     <PackageVersion Include="Grpc.AspNetCore" Version="2.84.0" />
@@ -23,5 +31,10 @@
   <ItemGroup Label="Testing">
     <PackageVersion Include="TngTech.ArchUnitNET.xUnitV3" Version="0.13.4" />
     <PackageVersion Include="xunit.v3.mtp-v2" Version="4.0.2" />
+  </ItemGroup>
+
+  <ItemGroup Label="Security pins (transitive)">
+    <!-- Via Aspire.Hosting.SqlServer -> Microsoft.Data.SqlClient; 10.0.12 has GHSA-846f-f764-76mx and GHSA-2fmv-rv2c-59x7. Remove once upstream ships >= 10.0.13. -->
+    <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
   </ItemGroup>
 </Project>

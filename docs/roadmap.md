@@ -30,7 +30,7 @@ Then:
 - [x] BFF generates TypeScript types from `protos/` with ts-proto (npm script)
 - [x] Project references following the dependency rules in CLAUDE.md
 - [x] `Directory.Build.props` (nullable, warnings as errors) and `Directory.Packages.props`
-- [ ] AppHost wires: SQL Server and MongoDB containers, Api, BFF, Angular app
+- [x] AppHost wires: SQL Server and MongoDB containers, Api, BFF, Angular app
 - [x] Angular i18n foundation: Transloco with `en` + `es-CO` (browser detection, English fallback), `es-CO` locale data registered for pipes
 - [x] Architecture tests enforcing the dependency rules
 - [x] GitHub Actions: build + test (.NET, BFF and Angular) on every push and PR, badge in README

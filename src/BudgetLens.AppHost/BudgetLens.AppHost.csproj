@@ -6,4 +6,14 @@
     <UserSecretsId>d9ef5f4a-d5b2-4bed-a88e-f68ed7dbb32a</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.JavaScript" />
+    <PackageReference Include="Aspire.Hosting.MongoDB" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BudgetLens.Api\BudgetLens.Api.csproj" />
+  </ItemGroup>
+
 </Project>
