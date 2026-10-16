@@ -8,6 +8,7 @@
     "**/obj/**",
     "**/dist/**",
     "**/package-lock.json",
+    "**/i18n/es-CO.json",
     "LICENSE"
   ],
   "words": [

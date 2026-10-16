@@ -31,7 +31,7 @@ Then:
 - [x] Project references following the dependency rules in CLAUDE.md
 - [x] `Directory.Build.props` (nullable, warnings as errors) and `Directory.Packages.props`
 - [ ] AppHost wires: SQL Server and MongoDB containers, Api, BFF, Angular app
-- [ ] Angular i18n foundation: Transloco with `en` + `es-CO` (browser detection, English fallback), `es-CO` locale data registered for pipes
+- [x] Angular i18n foundation: Transloco with `en` + `es-CO` (browser detection, English fallback), `es-CO` locale data registered for pipes
 - [x] Architecture tests enforcing the dependency rules
 - [x] GitHub Actions: build + test (.NET, BFF and Angular) on every push and PR, badge in README
 - [ ] *(Later, once an Anthropic API key with a spend limit exists)* Claude Code GitHub Action: on-demand `@claude` reviews and help in PRs/issues (Sonnet, `--max-turns`, job timeout)
