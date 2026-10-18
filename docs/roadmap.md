@@ -37,16 +37,16 @@ Then:
 - [ ] *(Later, once an Anthropic API key with a spend limit exists)* Claude Code GitHub Action: on-demand `@claude` reviews and help in PRs/issues (Sonnet, `--max-turns`, job timeout)
 
 ## Phase 1 — Budget MVP
-Goal: a user can define a plan, register expenses and see drift per jar.
-- [ ] Domain: `Money`, `Percentage`, `BudgetPlan`, `Jar`, `AllocationRule` (min/target/max), `Expense`
-- [ ] Plan presets via Strategy: personal method, Six Jars, 50/30/20
-- [ ] Use cases: create plan, set monthly net income, register expense, monthly summary
-- [ ] Deterministic alerts: jar over max, jar at 80% of target
+Goal: a user can plan a month's income across jars, register expenses and see drift per jar.
+- [ ] Domain: `Money`, `Percentage`, `BudgetMonth`, `MonthlyBudget`, `Jar`, `PlannedItem`, `Expense`
+- [ ] Plan presets via Strategy (suggested amounts the user edits; suggested limits compared, not enforced): personal method, Six Jars, 50/30/20
+- [ ] Use cases: save monthly budget (income + jars, pre-filled from the previous month), register expense, monthly summary
+- [ ] Deterministic alerts: jar spending over its planned amount, jar at 80% of its planned amount
 - [ ] EF Core for writes, Dapper for the monthly summary query
-- [ ] `budget.proto`: BudgetService (create plan, set income, register expense, monthly summary)
+- [ ] `budget.proto`: BudgetService (save monthly budget, register expense, monthly summary)
 - [ ] Unit-tested `DecimalValue` ↔ `decimal` mapper (C#) and ↔ string/decimal mapper (TS)
 - [ ] BFF: `GET /dashboard` aggregation endpoint calling the Api over gRPC with deadlines
-- [ ] Angular (via BFF only): income + plan setup, expense entry, dashboard with jar progress, every string translated in `en` and `es-CO`
+- [ ] Angular (via BFF only): income + jar setup, expense entry, dashboard with jar progress, every string translated in `en` and `es-CO`
 - [ ] Single-user demo mode (auth comes later)
 
 ## Phase 2 — Savings, investments and debts
