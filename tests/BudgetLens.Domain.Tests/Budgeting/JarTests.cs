@@ -63,16 +63,13 @@ public class JarTests
         ]));
     }
 
-    [Fact]
-    public void A_planned_amount_cannot_be_negative()
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public void A_planned_amount_must_be_greater_than_zero(decimal amount)
     {
-        Assert.Throws<ArgumentException>(() => new PlannedItem("Rent", Money.Cop(-1m)));
-    }
-
-    [Fact]
-    public void A_planned_amount_can_be_zero()
-    {
-        Assert.Equal(Money.Cop(0m), Jar.Single("Donations", Money.Cop(0m)).Planned);
+        Assert.Throws<ArgumentException>(() => new PlannedItem("Rent", Money.Cop(amount)));
+        Assert.Throws<ArgumentException>(() => Jar.Single("Donations", Money.Cop(amount)));
     }
 
     [Fact]

@@ -15,6 +15,8 @@ exposes the same use cases so any AI client can analyze the user's finances.
 - **Review before commit.** Never commit, push or open a PR without the developer's explicit approval. First show
   the changed files and the proposed commit message(s) and PR title/description, then wait for the go-ahead.
 - **Tests are part of done.** Every domain rule gets a unit test. Never mark a task done with failing tests.
+- **Track progress in `docs/roadmap.md`.** Every PR checks its own box and adds its PR number; split items
+  that need more than one PR into sub-items. The first unchecked box of the current phase is the next step.
 - **Record decisions.** Any architectural decision → new ADR in `docs/adr/` (next number, same format as 0001).
 - Prefer editing over rewriting files. Keep solutions simple. No speculative abstractions.
 - If unsure about a library API or version, check the official docs before writing code.
@@ -87,8 +89,13 @@ Dependency rules — enforced by `BudgetLens.ArchitectureTests`:
 - **Percentage** value object (0–100).
 - **Monthly budget** = the month's net income plus jars. A jar has one or more planned items
   (e.g. Fixed expenses: rent, debts, utilities, gym, cellphone); its amount is the sum of its items.
-  Users type amounts; percentages are always derived (amount / income), never stored.
-  The total planned may not exceed the income; the difference is shown as *unassigned*.
+  Every planned item is greater than zero. Users type amounts; percentages are always derived
+  (amount / income), never stored. The total planned may not exceed the income; the difference is
+  shown as *unassigned*.
+- **Expenses** are recorded in a month's budget: always against an existing jar, optionally against one
+  of its planned items (a dinner from Fun needs no item; Rent does), dated inside that month, amount > 0,
+  with an optional note. Spending over the plan is allowed and reported (planned, spent, remaining,
+  % used), never blocked. A new month starts without expenses.
 - **Monthly net income** is recorded per month. A new month is pre-filled with the previous month's
   income and jars; when the income changes, the user enters the new distribution (no automatic redistribution).
 - **Six jars preset** (the only preset): Necessities 55, Financial freedom 10, Long-term savings 10,
