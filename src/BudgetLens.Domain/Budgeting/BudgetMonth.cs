@@ -18,6 +18,8 @@ public readonly record struct BudgetMonth : IComparable<BudgetMonth>
         Month = month;
     }
 
+    public bool Contains(DateOnly date) => date.Year == Year && date.Month == Month;
+
     public int CompareTo(BudgetMonth other) => (Year, Month).CompareTo((other.Year, other.Month));
 
     public override string ToString() => $"{Year:D4}-{Month:D2}";

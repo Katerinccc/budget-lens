@@ -11,9 +11,9 @@ public sealed record PlannedItem
 
     public PlannedItem(string name, Money amount)
     {
-        if (amount.Amount < 0m)
+        if (amount.Amount <= 0m)
         {
-            throw new ArgumentException("A planned amount cannot be negative.", nameof(amount));
+            throw new ArgumentException("A planned amount must be greater than zero.", nameof(amount));
         }
 
         Name = Names.Required(name, nameof(name));
