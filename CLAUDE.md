@@ -91,13 +91,11 @@ Dependency rules — enforced by `BudgetLens.ArchitectureTests`:
   The total planned may not exceed the income; the difference is shown as *unassigned*.
 - **Monthly net income** is recorded per month. A new month is pre-filled with the previous month's
   income and jars; when the income changes, the user enters the new distribution (no automatic redistribution).
-- **Plan presets** (Strategy pattern) are suggestions only: they turn percentages into suggested amounts
-  for the user's income, which the user then edits. Suggested limits are compared, never enforced.
-  - *Personal method*: Fixed expenses 50% (debts, utilities, gym, cellphone, …), Fun 10%, Education 10%,
-    Donations 5%, the rest to Savings/Investment (25%).
-  - *Six jars*: Necessities 55, Financial freedom 10, Long-term savings 10, Education 10, Play 10, Give 5.
-  - *50/30/20*: Needs 50, Wants 30, Savings 20.
-  - Users can skip presets and create their own jars.
+- **Six jars preset** (the only preset): Necessities 55, Financial freedom 10, Long-term savings 10,
+  Education 10, Play 10, Give 5. It is a suggestion only: it turns its percentages into suggested amounts
+  for the user's income, which the user then edits, and compares the user's percentages with its own
+  (never enforced). Jars link to a suggestion by a stable key, not by their (translatable) name.
+  Users can skip it and create their own jars. Extract a Strategy only if a second preset is added.
 - **Interest rates** are entered as effective annual (E.A.). Monthly rate = (1 + EA)^(1/12) − 1.
 - **Never hardcode** market rates, tax rates or withholding percentages. They are always user input.
 - **Investments**: principal, E.A. rate, start date, term (CDT) or open-ended (neobank pocket),
