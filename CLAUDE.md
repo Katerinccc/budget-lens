@@ -2,7 +2,7 @@
 
 ## Purpose
 Portfolio project. Users set their monthly **net income**, split it into budget
-jars by percentage, record expenses, track savings goals, debts and
+jars by amount (the app derives the percentages), record expenses, track savings goals, debts and
 investments (CDTs, neobank savings pockets), and get optimization insights.
 An Angular SPA talks to a NestJS BFF over REST; the BFF talks to the .NET API over gRPC. An MCP server
 exposes the same use cases so any AI client can analyze the user's finances.
@@ -85,13 +85,19 @@ Dependency rules — enforced by `BudgetLens.ArchitectureTests`:
 - **Money is `decimal`, never `double`/`float`.** `Money` value object (Amount, Currency). Default currency COP.
   Rounding is always explicit. Rate math may use `double` internally for `Math.Pow`, converted back to `decimal` with an explicit rounding rule.
 - **Percentage** value object (0–100).
-- **Budget plan** = allocation rules per jar: target %, optional min %, optional max %.
-  The sum of targets must equal exactly 100%.
-- **Plan presets** (Strategy pattern):
-  - *Personal method*: Fixed expenses ≤ 50%, Fun 10%, Education 5–10%, remainder to Savings/Investment goals.
+- **Monthly budget** = the month's net income plus jars. A jar has one or more planned items
+  (e.g. Fixed expenses: rent, debts, utilities, gym, cellphone); its amount is the sum of its items.
+  Users type amounts; percentages are always derived (amount / income), never stored.
+  The total planned may not exceed the income; the difference is shown as *unassigned*.
+- **Monthly net income** is recorded per month. A new month is pre-filled with the previous month's
+  income and jars; when the income changes, the user enters the new distribution (no automatic redistribution).
+- **Plan presets** (Strategy pattern) are suggestions only: they turn percentages into suggested amounts
+  for the user's income, which the user then edits. Suggested limits are compared, never enforced.
+  - *Personal method*: Fixed expenses 50% (debts, utilities, gym, cellphone, …), Fun 10%, Education 10%,
+    Donations 5%, the rest to Savings/Investment (25%).
   - *Six jars*: Necessities 55, Financial freedom 10, Long-term savings 10, Education 10, Play 10, Give 5.
   - *50/30/20*: Needs 50, Wants 30, Savings 20.
-  - Users can create custom plans.
+  - Users can skip presets and create their own jars.
 - **Interest rates** are entered as effective annual (E.A.). Monthly rate = (1 + EA)^(1/12) − 1.
 - **Never hardcode** market rates, tax rates or withholding percentages. They are always user input.
 - **Investments**: principal, E.A. rate, start date, term (CDT) or open-ended (neobank pocket),
