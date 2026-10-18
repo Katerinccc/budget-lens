@@ -76,6 +76,21 @@ public class JarTests
     }
 
     [Fact]
+    public void A_jar_is_custom_unless_linked_to_a_suggestion()
+    {
+        Assert.Null(Jar.Single("Pets", Money.Cop(100_000m)).SuggestionKey);
+        Assert.Equal("necessities", Jar.Single("Gastos fijos", Money.Cop(100_000m), "necessities").SuggestionKey);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("  ")]
+    public void A_suggestion_key_cannot_be_blank(string key)
+    {
+        Assert.Throws<ArgumentException>(() => Jar.Single("Fun", Money.Cop(1_000m), key));
+    }
+
+    [Fact]
     public void Items_must_share_a_currency()
     {
         Assert.Throws<InvalidOperationException>(() => new Jar("Fixed expenses",
