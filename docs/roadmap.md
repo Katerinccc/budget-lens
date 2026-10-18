@@ -39,7 +39,7 @@ Then:
 ## Phase 1 — Budget MVP
 Goal: a user can plan a month's income across jars, register expenses and see drift per jar.
 - [ ] Domain: `Money`, `Percentage`, `BudgetMonth`, `MonthlyBudget`, `Jar`, `PlannedItem`, `Expense`
-- [ ] Plan presets via Strategy (suggested amounts the user edits; suggested limits compared, not enforced): personal method, Six Jars, 50/30/20
+- [x] Six Jars preset (suggested amounts the user edits; percentages compared, not enforced)
 - [ ] Use cases: save monthly budget (income + jars, pre-filled from the previous month), register expense, monthly summary
 - [ ] Deterministic alerts: jar spending over its planned amount, jar at 80% of its planned amount
 - [ ] EF Core for writes, Dapper for the monthly summary query
