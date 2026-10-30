@@ -43,9 +43,9 @@ Goal: a user can plan a month's income across jars, register expenses and see dr
   - [x] `BudgetMonth`, `MonthlyBudget`, `Jar`, `PlannedItem` (#12)
   - [x] `Expense` and spending status per jar and item (#14)
 - [x] Six Jars preset (suggested amounts the user edits; percentages compared, not enforced) (#13)
-- [ ] Use cases: save monthly budget (income + jars, pre-filled from the previous month), register expense, monthly summary
+- [x] Use cases: save monthly budget (income + jars, pre-filled from the previous month), register expense, monthly summary (#15)
 - [ ] Deterministic alerts: jar spending over its planned amount, jar at 80% of its planned amount
-- [ ] EF Core for writes, Dapper for the monthly summary query
+- [ ] EF Core for writes and reads of the monthly budget (summary computed by the domain, ADR 0010)
 - [ ] `budget.proto`: BudgetService (save monthly budget, register expense, monthly summary)
 - [ ] Unit-tested `DecimalValue` ↔ `decimal` mapper (C#) and ↔ string/decimal mapper (TS)
 - [ ] BFF: `GET /dashboard` aggregation endpoint calling the Api over gRPC with deadlines

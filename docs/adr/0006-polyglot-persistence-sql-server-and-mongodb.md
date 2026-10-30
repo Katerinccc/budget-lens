@@ -1,6 +1,6 @@
 # 0006 — Polyglot persistence: SQL Server for writes, MongoDB for read models
 
-- **Status:** Accepted
+- **Status:** Accepted (amended by ADR 0010: summary numbers are computed by the domain)
 - **Date:** 2026-10-12
 
 ## Context

@@ -13,14 +13,14 @@ public sealed class MonthlyBudget
 
     public BudgetMonth Month { get; }
 
-    public Money NetIncome { get; }
+    public Money NetIncome { get; private set; }
 
-    public IReadOnlyList<Jar> Jars { get; }
+    public IReadOnlyList<Jar> Jars { get; private set; }
 
-    public Money Planned { get; }
+    public Money Planned { get; private set; }
 
     /// <summary>Net income not yet planned in any jar. Never negative.</summary>
-    public Money Unassigned { get; }
+    public Money Unassigned { get; private set; }
 
     public IReadOnlyList<Expense> Expenses => _expenses;
 
@@ -28,24 +28,31 @@ public sealed class MonthlyBudget
 
     public MonthlyBudget(BudgetMonth month, Money netIncome, IEnumerable<Jar> jars)
     {
-        if (netIncome.Amount <= 0m)
-        {
-            throw new ArgumentException("The net income must be greater than zero.", nameof(netIncome));
-        }
-
-        Jars = [.. jars];
-        Names.EnsureUnique(Jars.Select(jar => jar.Name), "Jar", nameof(jars));
-
-        var planned = Jars.Aggregate(new Money(0m, netIncome.Currency), (sum, jar) => sum + jar.Planned);
-        if (planned.Amount > netIncome.Amount)
-        {
-            throw new ArgumentException($"The planned amounts exceed the net income by {planned - netIncome}.", nameof(jars));
-        }
-
         Month = month;
-        NetIncome = netIncome;
-        Planned = planned;
-        Unassigned = netIncome - planned;
+        (NetIncome, Jars, Planned, Unassigned) = ValidatePlan(netIncome, jars);
+    }
+
+    /// <summary>
+    /// Replaces the month's income and jars, keeping its expenses. Rejected when an expense would be left
+    /// without its jar or planned item (removed or renamed): those expenses must be moved or deleted first.
+    /// </summary>
+    public void Replan(Money netIncome, IEnumerable<Jar> jars)
+    {
+        var plan = ValidatePlan(netIncome, jars);
+
+        var orphaned = _expenses
+            .Where(expense => expense.Amount.Currency != plan.NetIncome.Currency || !FitsIn(expense, plan.Jars))
+            .GroupBy(expense => expense.ItemName is null ? expense.JarName : $"{expense.JarName} / {expense.ItemName}")
+            .Select(group => $"{group.Key} ({group.Count()} {(group.Count() == 1 ? "expense" : "expenses")})")
+            .ToList();
+
+        if (orphaned.Count > 0)
+        {
+            throw new InvalidOperationException(
+                $"The new plan leaves expenses without their jar or item: {string.Join(", ", orphaned)}. Move or delete them first.");
+        }
+
+        (NetIncome, Jars, Planned, Unassigned) = plan;
     }
 
     /// <summary>The percentage of the net income that <paramref name="amount"/> represents (a jar, an item or the unassigned amount).</summary>
@@ -81,7 +88,7 @@ public sealed class MonthlyBudget
     public SpendingStatus StatusOf(string jarName)
     {
         var jar = FindJar(jarName);
-        return new SpendingStatus(jar.Planned, SpentWhere(expense => expense.JarName == jar.Name));
+        return new SpendingStatus(jar.Planned, SpentWhere(expense => Names.Comparer.Equals(expense.JarName, jar.Name)));
     }
 
     /// <summary>Planned vs. spent for one planned item, counting only the expenses recorded against it.</summary>
@@ -89,7 +96,8 @@ public sealed class MonthlyBudget
     {
         var jar = FindJar(jarName);
         var item = FindItem(jar, itemName);
-        return new SpendingStatus(item.Amount, SpentWhere(expense => expense.JarName == jar.Name && expense.ItemName == item.Name));
+        return new SpendingStatus(item.Amount, SpentWhere(expense =>
+            Names.Comparer.Equals(expense.JarName, jar.Name) && Names.Comparer.Equals(expense.ItemName, item.Name)));
     }
 
     /// <summary>Starts a later month with the same income and jars (but no expenses), for the user to confirm or edit.</summary>
@@ -102,6 +110,30 @@ public sealed class MonthlyBudget
 
         return new MonthlyBudget(month, NetIncome, Jars);
     }
+
+    private static (Money NetIncome, IReadOnlyList<Jar> Jars, Money Planned, Money Unassigned) ValidatePlan(
+        Money netIncome, IEnumerable<Jar> jars)
+    {
+        if (netIncome.Amount <= 0m)
+        {
+            throw new ArgumentException("The net income must be greater than zero.", nameof(netIncome));
+        }
+
+        IReadOnlyList<Jar> validated = [.. jars];
+        Names.EnsureUnique(validated.Select(jar => jar.Name), "Jar", nameof(jars));
+
+        var planned = validated.Aggregate(new Money(0m, netIncome.Currency), (sum, jar) => sum + jar.Planned);
+        if (planned.Amount > netIncome.Amount)
+        {
+            throw new ArgumentException($"The planned amounts exceed the net income by {planned - netIncome}.", nameof(jars));
+        }
+
+        return (netIncome, validated, planned, netIncome - planned);
+    }
+
+    private static bool FitsIn(Expense expense, IReadOnlyList<Jar> jars) =>
+        jars.Any(jar => Names.Comparer.Equals(jar.Name, expense.JarName)
+            && (expense.ItemName is null || jar.Items.Any(item => Names.Comparer.Equals(item.Name, expense.ItemName))));
 
     private Jar FindJar(string jarName) =>
         Jars.FirstOrDefault(jar => Names.Comparer.Equals(jar.Name, jarName?.Trim()))

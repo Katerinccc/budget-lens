@@ -75,10 +75,13 @@ Dependency rules — enforced by `BudgetLens.ArchitectureTests`:
 ## CQRS and persistence (see ADR 0006)
 - **SQL Server is the source of truth.** Commands go through Application handlers and persist
   aggregates via EF Core. Money needs ACID.
-- **Phase 1 queries** read from SQL Server with Dapper and return DTOs directly.
+- **Queries whose numbers come from domain rules** (e.g. the monthly summary) load the aggregate through its
+  repository port and let the domain compute; handlers map the results to DTOs (see ADR 0010).
+  Dapper is for list-style reads that only filter and page stored data (e.g. an expense history).
 - **From Phase 2, screen read models live in MongoDB**: one denormalized document per view
   (e.g. monthly dashboard). They are fed by a transactional **outbox** in SQL Server and a projector
-  (`BackgroundService`). Read models are disposable: they must be fully rebuildable from SQL Server.
+  (`BackgroundService`) that builds them with the same domain logic. Read models are disposable:
+  they must be fully rebuildable from SQL Server.
 - Never write the same business data to both stores from a handler. SQL first; Mongo only via projection.
 - **No MediatR, no AutoMapper** (commercial licenses since 2025, see ADR 0004). Use plain
   `ICommandHandler<TCommand, TResult>` / `IQueryHandler<TQuery, TResult>` registered in DI. Map by hand.
